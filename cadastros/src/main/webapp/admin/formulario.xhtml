@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+      
+
+<h:head>
+<script >
+function confirmaExclusao(){
+	
+  return	window.confirm("o registro sera apagado");
+  
+}
+</script>
+
+<script >
+
+
+
+
+</script>
+
+</h:head> 
+
+<h:body style="" > 
+<ui:composition template="template.xhtml">
+<ui:define name="conteudo">
+
+<h:form  id="form">
+<p:growl id="msgs"  showDetail="true"  />
+
+
+
+<!--  <h:messages /> -->
+
+<!--PARTE SUPERIOR DA MINHA TABELA  -->
+
+<p:layout style="min-width:200px;min-height:100px;">
+    <p:layoutUnit position="west" resizable="true" size="100" minSize="40" maxSize="200"  >
+  
+       
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="center">
+    
+    
+    
+    <!--  aqui  carrega minha lista perfil   -->
+
+
+ <p:outputLabel value="Perfil " />
+ <p:selectOneMenu value="#{usuarioController.usuario.perfil}" converter="#{perfilConverter}"   >
+ 
+ 
+ <f:selectItem itemValue=""  itemLabel="selecione um perfil"  />
+ 
+ <f:selectItems value="#{perfilController.listaPerfil}"   var="p"  itemLabel="#{p.descricao}" />
+  </p:selectOneMenu>     
+        
+    </p:layoutUnit>
+</p:layout>
+
+<!-- ELEMENTOS DE ENTRADAS DA MINHA TABELA  -->
+
+<p:layout style="min-width:200px;min-height:100px;">
+<p:layoutUnit position="center">
+ CADASTRE-SE<br />
+ 
+
+ 
+ 
+<!--  entrada de componentes  nome para cadastro de usuario  -->
+
+<p:outputLabel value="Nome:" />
+<p:inputText value="#{usuarioController.usuario.nome}"  />
+
+
+<p:outputLabel value="Login:" />
+<p:inputText value="#{usuarioController.usuario.login}"  />
+
+
+<p:outputLabel value="Senha:"  />
+<p:inputText value="#{usuarioController.usuario.senha}" type="password"  />
+
+
+<p:commandButton value="Salvar" actionListener="#{usuarioController.salvar()}" update="@form" process="@form:"  />
+</p:layoutUnit>
+</p:layout>
+
+
+
+
+<!-- INICIO DA MINHA TABELA LISTANDO TODOS OS SEUS ELEMENTOS nao se esqueça de editable da data table-->
+
+<p:dataTable  value="#{usuarioController.listaUsuarios}" var="usu" border="1" cellpanding="1" editable="true" rows="10" paginator="true"
+paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+rowsPerPageTemplate="5,10,15"
+ >
+
+
+   
+<!-- <p:ajax event="alterar" actionlistener="#{usuarioController.alterar(usu)}" update=":form:msgs" /> -->
+
+
+<p:column  headerText="Id">
+
+
+
+#{usu.id}
+
+
+
+</p:column>
+<p:column headerText="Nome">
+
+<p:cellEditor>
+<f:facet name="output">
+<h:outputText value="#{usu.nome}" />
+<f:facet name="input">
+<h:inputText value="#{usu.nome}"  style="width:100%" />
+</f:facet>
+</f:facet>
+
+</p:cellEditor>
+</p:column >
+
+<p:column headerText="Login">
+
+
+<p:cellEditor>
+<f:facet name="output">
+<h:outputText value="#{usu.login}" />
+<f:facet name="input">
+<h:inputText value="#{usu.login}"  style="width:100%" />
+</f:facet>
+</f:facet>
+</p:cellEditor>
+</p:column>
+
+<p:column headerText="Senha">
+
+
+<p:cellEditor>
+<f:facet name="output">
+<h:outputText value="**********"   />
+<f:facet name="input">
+<h:inputText value="#{usu.senha}" type="password" style="width:100%" />
+</f:facet>
+</f:facet>
+</p:cellEditor>
+</p:column>
+
+<p:column headerText="Excluir">
+
+
+<p:commandButton actionListener="#{usuarioController.excluir(usu)}"   value="Excluir" update="@form" process="@this" onclick=" return confirmaExclusao()"/>
+
+&nbsp;&nbsp;&nbsp;
+
+
+
+</p:column>
+
+<!-- COMANDO DE ECIÇAO DA PAGINA  -->
+
+ <p:column  headerText="Editar" style="width:100px">
+                
+         
+         <p:rowEditor />  
+         </p:column>
+         <p:column headerText="Salve a alteraçao">
+        <p:commandButton  actionListener="#{usuarioController.alterar(usu)}" value="Salvar alteraçao" 
+              update="@form"  process="@this"/>
+                
+               </p:column>
+       
+
+</p:dataTable>
+
+
+</h:form>
+
+
+</ui:define>
+</ui:composition>
+</h:body> 
+</html>

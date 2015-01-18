@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head></h:head> 
+<body bgcolor="cyan" > 
+  
+
+<form action="j_spring_security_check"   method="post"  >
+
+
+<p:layout style="min-width:1000px;min-height:800px;">
+
+<p:layoutUnit position="north" resizable="true" size="100" minSize="40"  maxSize="100" >
+Bem Vindo
+</p:layoutUnit>
+
+
+  <p:layoutUnit position="center"  >
+   
+   <h:outputText value="usuario invalido" rendered="#{param.erro}"   />
+ 
+    
+    <p:outputLabel for="login"  value="login:" />
+    <p:inputText id="login"  required="true" />
+  
+    
+    <p:outputLabel value="senha:" for="senha"  />
+    <p:inputText id="senha" required="true"  type="password"/>
+    
+   
+    &nbsp;<h:commandButton  value="entrar"      />
+   
+    
+    </p:layoutUnit>
+  </p:layout>
+
+</form>
+
+
+</body> 
+</html>
